@@ -2,7 +2,9 @@ import http from 'node:http';
 import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 const files={'/':'index.html','/app.js':'app.js','/styles.css':'styles.css'};
-const types={html:'text/html; charset=utf-8',js:'text/javascript; charset=utf-8',css:'text/css; charset=utf-8'};
+for(const name of ['index.html','style.css','game.js','engine.js','sw.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'])files['/juego/'+name]='juego/'+name;
+files['/juego/']='juego/index.html';
+const types={png:'image/png',svg:'image/svg+xml',webmanifest:'application/manifest+json',html:'text/html; charset=utf-8',js:'text/javascript; charset=utf-8',css:'text/css; charset=utf-8'};
 export const server=http.createServer(async(req,res)=>{
  const path=new URL(req.url,'http://localhost').pathname;
  if(!files[path]){res.writeHead(404);res.end('No encontrado');return;}
